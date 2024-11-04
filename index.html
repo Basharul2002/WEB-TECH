@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Store</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
+
 <body>
+    <img src = "assets/id.png">
     <div class="container">
         <!-- Top 3 boxes -->
         <div class="box1">
@@ -29,7 +32,37 @@
             <p>Box 4.3</p>
         </div>
         <div class="box3">
-            <p>Box 5.1</p>
+            <div class="form-container">
+                <h2>Borrow a Book</h2>
+                <form  method="POST" action="process.php">
+                    <input type="text" placeholder="Student Full Name" name="userName">
+                    <input type="text" placeholder="Student ID" name="userID" >
+                    <select name="books" id="books">
+                        <option value="book0">Select a book</option>
+                        <option value="book1">Introduction to Algorithms</option>
+                        <option value="book2">Structure and Interpretation of Computer Programs</option>
+                        <option value="book3">The C Programming Language</option>
+                        <option value="book4">Introduction to the Theory of Computation</option>
+                        <option value="book5">Algorithms</option>
+                    </select>
+                  <label>Borrow Date</label>
+                  <input type="date" placeholder="Borrow Date" name="borrowDate">
+                  <input type="text" placeholder="Token" name="token">
+                  <label>Return Date</label>
+                  <input type="date" placeholder="Return Date" name="returnDate">
+                  <input type="text" placeholder="Fees" name="fees">
+
+                  <label>Paid: </label>
+                  <input type="radio" id="option1" name="paid" value="Paid">
+                  <label for="paid">Yes</label>
+                  <input type="radio" id="option1" name="paid" value="Not Paid">
+                  <label for="not_paid">NO</label>
+                  <br>
+                
+                  <input type="submit" name="submit" value="Submit">
+
+                </form>
+              </div>
         </div>
         <div class="box2">
             <p>Box 5.2</p>
