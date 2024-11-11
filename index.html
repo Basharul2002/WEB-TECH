@@ -35,9 +35,9 @@
             <div class="form-container">
                 <h2>Borrow a Book</h2>
                 <form  method="POST" action="process.php">
-                    <input type="text" placeholder="Student Full Name" name="userName">
-                    <input type="text" placeholder="Student ID" name="userID" >
-                    <select name="books" id="books">
+                    <input type="text" placeholder="Student Full Name" name="userName" required>
+                    <input type="text" placeholder="Student ID" name="userID" required>
+                    <select name="books" id="books" required>
                         <option value="book0">Select a book</option>
                         <option value="book1">Introduction to Algorithms</option>
                         <option value="book2">Structure and Interpretation of Computer Programs</option>
@@ -46,16 +46,16 @@
                         <option value="book5">Algorithms</option>
                     </select>
                   <label>Borrow Date</label>
-                  <input type="date" placeholder="Borrow Date" name="borrowDate">
-                  <input type="text" placeholder="Token" name="token">
+                  <input type="date" placeholder="Borrow Date" name="borrowDate" required>
+                  <input type="text" placeholder="Token" name="token" required>
                   <label>Return Date</label>
-                  <input type="date" placeholder="Return Date" name="returnDate">
-                  <input type="text" placeholder="Fees" name="fees">
+                  <input type="date" placeholder="Return Date" name="returnDate" required>
+                  <input type="text" placeholder="Fees" name="fees" required>
 
                   <label>Paid: </label>
-                  <input type="radio" id="option1" name="paid" value="Paid">
+                  <input type="radio" id="option1" name="paid" value="Paid" required>
                   <label for="paid">Yes</label>
-                  <input type="radio" id="option1" name="paid" value="Not Paid">
+                  <input type="radio" id="option1" name="paid" value="Not Paid" required>
                   <label for="not_paid">NO</label>
                   <br>
                 
