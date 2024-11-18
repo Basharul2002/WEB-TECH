@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Book Borrow System</title>
 </head>
 <body>
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") 
-    { 
+    {
         // Retrieve form data
         $studentName = $_POST['userName'];
         $studentID = $_POST['userID'];
@@ -18,7 +18,8 @@
         $returnDate = $_POST['returnDate'];
         $fees = $_POST['fees'];
         $paid = $_POST['paid'];
-    
+
+        // Validation
         if (!preg_match("/[A-Za-z\-]/", $_POST['userName'])) 
         { 
             echo "Invalid Name";
@@ -37,19 +38,19 @@
             return;
         }
 
-        
-        // Calculate the difference between the borrow date and return date
-        $interval = date_diff(new DateTime($borrowDate), new DateTime($returnDate));
-
-        // Check if the interval is greater than 10 days
-        if ($interval->format('%a') > 10) 
+        $cookieName = $bookTitle; // Cookie name is the book title
+        if (isset($_COOKIE[$cookieName])) 
         {
-            echo "Not able to borrow book for more than 10 days.";
-            return;
+            // Check if the cookie value matches the student name
+            if ($_COOKIE[$cookieName] === $studentName) 
+            {
+                echo "<h3 style='color: red;'>You're not allowed to borrow the same book again.</h3>";
+                return;
+            }
         }
 
-        
-        
+        // Set the cookie with the book title as the name and student name as the value
+        setcookie($cookieName, $studentName, time() + (10 * 24 * 60 * 60), "/"); // Cookie expires in 10 days
 
 
         // Display the submitted data
@@ -61,12 +62,10 @@
         echo "Token: " . $token . "<br>";
         echo "Return Date: " . $returnDate . "<br>";
         echo "Fees: $" . $fees . "<br>";
-
         return;
     } 
-    
-    echo "No data submitted.";
-    
+
+        echo "No data submitted.";
     
     ?>
 </body>

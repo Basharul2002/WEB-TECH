@@ -59,13 +59,22 @@
                   <label for="not_paid">NO</label>
                   <br>
                 
-                  <input type="submit" name="submit" value="Submit">
+                  <input type="submit" name="submit1" value="Submit">
 
                 </form>
               </div>
         </div>
-        <div class="box2">
-            <p>Box 5.2</p>
+        <div class="box4">
+            <div class="form-container">
+                <h2>Book Info</h2>
+                <form action="process.php" method="post">
+                    <input type="text" placeholder="Book Title" name =  "bookTitle">
+                    <input type = "text" placeholder="Author Name" name = "authorName">
+                    <input type = "text" placeholder="Number of Book" name = "numberOfBook">
+                    <input type = "text" placeholder="ISBN Number" name = "isbnNumber">
+                    <input type="submit" name="submit2" value="Submit">
+                </form>
+            </div>
         </div>
     </div>
 </body>

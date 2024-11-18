@@ -33,6 +33,12 @@ p{
     border: 1px solid rgb(253, 253, 253);
 }
 
+.box4 {
+  width: 150px; 
+  height: auto;
+  border: 1px solid rgb(253, 253, 253);
+}
+
  /* Form container styling */
  .form-container {
     width: 280px;
