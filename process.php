@@ -66,38 +66,64 @@
             $fees = $_POST['fees'];
             $paid = $_POST['paid'];
 
+            $date1 = strtotime($borrowDate); 
+            $date2 = strtotime($returnDate);
+
+            if ($date1 == $date2)
+            {
+                echo "You're not allow to return in same date";
+                return;
+            }
+
+            if ($date1 > $date2)
+            {
+                echo "You're not allow to return in same date";
+                return;
+            }
+
+
             // Validation
+            // User name
             if (!preg_match("/[A-Za-z\-]/", $_POST['userName'])) 
             {
                 echo "<div class='message error'>Invalid Name</div>";
                 return;
             }
+            // Student Name
             if (!preg_match("/\d{2}-\d{5}-\d{1}/", $studentID)) 
             {
                 echo "<div class='message error'>Invalid UserID</div>";
                 return;
             }
+            // Fee
             if (!preg_match("/[0-9]/", $_POST['fees'])) 
             {
                 echo "<div class='message error'>Invalid Fees</div>";
                 return;
             }
 
-            $cookieName = $bookTitle; // Cookie name is the book title
+            if ($bookTitle == "book0")
+            {
+                echo "Select a book please";
+                return;
+            }
+
+            $cookieName = str_replace(['=', ',', ';', ' ', "\t", "\r", "\n", "\013", "\014"], '_', $bookTitle); // Cookie name is the book title
+
             if (isset($_COOKIE[$cookieName])) 
             {
                 // Check if the cookie value matches the student name
-                if ($_COOKIE[$cookieName] === $studentName) 
+                if ($_COOKIE[$cookieName] == $studentName) 
                 {
-                    echo "<div class='message error'>You're not allowed to borrow the same book again.</div>";
+                    echo "<div class='message error'>You're not allowed to loadn the same book again.</div>";
                     return;
                 }
             }
 
-            // Set the cookie with the book title as the name and student name as the value
+            // Set cookie {Name: book title & value: student name
             setcookie($cookieName, $studentName, time() + (10 * 24 * 60 * 60), "/"); // Cookie expires in 10 days
 
-            echo "<div class='message success'>You're allowed to borrow this book.</div>";
+            echo "<div class='message success'>You're allowed to loan this book.</div>";
 
             // Display the submitted data
             echo "<div class='details'>";

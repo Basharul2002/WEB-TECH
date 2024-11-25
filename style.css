@@ -5,7 +5,7 @@
     flex-wrap: wrap; 
     justify-content: center; 
     align-items: center; 
-    width: 500px; 
+    width: 660px; 
     margin: auto; 
     gap: 20px;
 }
@@ -13,37 +13,35 @@
 p{
     text-align: center;
     color: tomato;
-    font-size: 1.5em;
-    font: optional;
 }
 
 .box1 {
-    width: 500px;
+    width: 620px;
     height: 100px;
     border: 1px solid rgb(253, 253, 253);
 }
 
 .box2 {
-    width: 150px; 
+    width: 190px; 
     height: 100px;
     border: 1px solid rgb(253, 253, 253);
 }
 
 .box3 {
-    width: 320px; 
+    width: 300px; 
     height: auto;
     border: 1px solid rgb(253, 253, 253);
 }
 
 .box4 {
-  width: 150px; 
+  width: 300px; 
   height: auto;
   border: 1px solid rgb(253, 253, 253);
 }
 
  /* Form container styling */
  .form-container {
-    width: 280px;
+    width: 260px;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
