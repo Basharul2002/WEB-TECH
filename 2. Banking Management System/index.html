@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Banking Management System</h1>
+        <form action="process.php" method="post">
+            <!-- Account Number -->
+            <label for="ac_number">A/C Number:</label>
+            <input type="text" id="ac_number" name="ac_number" placeholder="Enter Account Number" required>
+
+            <!-- Action Selection -->
+            <label for="action">Select Action:</label>
+            <select id="action" name="action" required onchange="toggleTransferField()">
+                <option value="">Select an option</option>
+                <option value="deposit">Deposit</option>
+                <option value="withdraw">Withdraw</option>
+                <option value="transfer">Transfer</option>
+            </select>
+
+            <!-- Amount -->
+            <label for="amount">Amount:</label>
+            <input type="text" id="amount" name="amount" placeholder="Enter Amount" min="1000" required>
+
+            <!-- Transfer Target Account -->
+            <label for="targetAccount" id="transferLabel" style="display: none;">Target Account (for Transfer):</label>
+            <input type="text" id="targetAccount" name="targetAccount" placeholder="Enter Target Account Number" style="display: none;">
+
+            <!-- Submit Button -->
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+
+         /* Toggles the visibility of the Target Account field based on the selected action. */
+        function toggleTransferField() {
+            const action = document.getElementById("action").value;
+            const transferLabel = document.getElementById("transferLabel");
+            const targetAccount = document.getElementById("targetAccount");
+
+            if (action === "transfer") {
+                transferLabel.style.display = "block";
+                targetAccount.style.display = "block";
+            } 
+            else 
+            {
+                transferLabel.style.display = "none";
+                targetAccount.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

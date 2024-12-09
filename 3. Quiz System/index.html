@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz System</title>
+</head>
+<body>
+    <h1> Online Quiz System</h1>
+    <form action="process.php" method="post">
+        <h1>Quiz</h1>
+        
+        <!-- User ID Input -->
+        <p>Enter your ID: </p>
+        <input type="text" name="id" required>
+        <br><br>
+        
+        <!-- Question 1 -->
+        <p>Q1: What is the capital of Bangladesh?</p>
+        <input type="radio" name="q1" value="r" required> Dhaka<br>
+        <input type="radio" name="q1" value="w"> Feni<br>
+        <input type="radio" name="q1" value="w"> Cumilla<br>
+        <input type="radio" name="q1" value="w"> Delhi<br><br>
+    
+        <!-- Question 2 -->
+        <p>Q2: Hasina Ki Kore Paliyeche?</p>
+        <input type="radio" name="q2" value="w" required> Boat<br>
+        <input type="radio" name="q2" value="w"> Ship<br>
+        <input type="radio" name="q2" value="r"> Helicopter<br>
+        <input type="radio" name="q2" value="w"> Biman<br><br>
+    
+        <!-- Question 3 -->
+        <p>Q3: Ke bolechilo Hasina Palay Na?</p>
+        <input type="radio" name="q3" value="w" required> Haun Uncle<br>
+        <input type="radio" name="q3" value="w"> Vater Hotel er malik<br>
+        <input type="radio" name="q3" value="w"> Kauha Kader<br>
+        <input type="radio" name="q3" value="r"> Amra Hasi Na<br><br>
+    
+        <!-- Question 4 -->
+        <p>Q4: Kon uktiti sothik Noy?</p>
+        <input type="radio" name="q4" value="w" required> Haruner Vater Hotel<br>
+        <input type="radio" name="q4" value="r"> Bangladeh er malik hasina er bap<br>
+        <input type="radio" name="q4" value="w"> Hasina palay na<br>
+        <input type="radio" name="q4" value="w"> Palbo? Kothay palabo? Projon hole fakhrul shaheb er basay uthbo. Thakurgaon er bari ache na! Ki jaiga diben?<br><br>
+    
+        <!-- Submit Button -->
+        <input type="submit" name="submit" value="Submit">
+    </form>    
+</body>
+</html>
