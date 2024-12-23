@@ -69,6 +69,25 @@
             $date1 = strtotime($borrowDate); 
             $date2 = strtotime($returnDate);
 
+
+            if (file_exists("./token.json")) 
+            {
+                $jsonData = json_decode(file_get_contents("./token.json"), true);
+
+                if (isset($jsonData[0]['token'])) 
+                {
+                    $inputToken = (int)$_POST['token']; 
+                    $tokens = $jsonData[0]['token'];    
+
+                    if (in_array($inputToken, $tokens)) 
+                        $flagToken = 1;
+                    else 
+                        $flagToken = 0;
+                } 
+                else 
+                    $flagToken = 0;
+            } 
+
             if ($date1 == $date2)
             {
                 echo "You're not allow to return in same date";
@@ -77,7 +96,13 @@
 
             if ($date1 > $date2)
             {
-                echo "You're not allow to return in same date";
+                echo "Invalid return date";
+                return;
+            }
+
+            if ($date2 - $date1 > 10 && $flagToken != 1)
+            {
+                echo "Invalid return date";
                 return;
             }
 
@@ -123,6 +148,7 @@
             // Set cookie {Name: book title & value: student name
             setcookie($cookieName, $studentName, time() + (10 * 24 * 60 * 60), "/"); // Cookie expires in 10 days
 
+            file_put_contents("./used.json", json_encode($usedData)); 
             echo "<div class='message success'>You're allowed to loan this book.</div>";
 
             // Display the submitted data
