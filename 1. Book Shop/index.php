@@ -45,15 +45,15 @@
 
         <!-- Second Box 3 -->
         <div class="box3">
-        <h3>All Tokens</h3>
+        <h3>Already Tokens</h3>
             <ul>
                 <?php
-                if (file_exists("./usedtoken.json")) {
-                    $jsonData = json_decode(file_get_contents("./usedtoken.json"), true);
+                if (file_exists("./token.json")) {
+                    $jsonData = json_decode(file_get_contents("./token.json"), true);
 
-                    if (isset($jsonData[0]['token'])) 
+                    if (isset($jsonData[0]['UsedToken'])) 
                     {
-                        foreach ($jsonData[0]['token'] as $token) 
+                        foreach ($jsonData[0]['UsedToken'] as $token) 
                             echo "<li>Token: $token</li>";
                     } 
                     else 

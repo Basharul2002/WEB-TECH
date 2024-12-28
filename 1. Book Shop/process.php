@@ -85,7 +85,20 @@
                         $flagToken = 0;
                 } 
                 else 
-                    $flagToken = 0;
+                    $flagUsedToken = 0;
+
+                    if (isset($jsonData[0]['token'])) 
+                    {
+                        $inputToken = (int)$_POST['token']; 
+                        $tokens = $jsonData[0]['token'];    
+    
+                        if (in_array($inputToken, $tokens)) 
+                            $flagUsedToken = 1;
+                        else 
+                            $flagUsedToken = 0;
+                    } 
+                    else 
+                        $flagUsedToken = -1;
             } 
 
             if ($date1 == $date2)
@@ -100,6 +113,12 @@
                 return;
             }
 
+            if ($flagUsedToken != 0)
+            {
+                echo "You are not allow to use this token because its already used";
+                return;
+            }
+            
             if ($date2 - $date1 > 10 && $flagToken != 1)
             {
                 echo "Invalid return date";
@@ -133,6 +152,8 @@
                 return;
             }
 
+            
+
             $cookieName = str_replace(['=', ',', ';', ' ', "\t", "\r", "\n", "\013", "\014"], '_', $bookTitle); // Cookie name is the book title
 
             if (isset($_COOKIE[$cookieName])) 
@@ -148,7 +169,24 @@
             // Set cookie {Name: book title & value: student name
             setcookie($cookieName, $studentName, time() + (10 * 24 * 60 * 60), "/"); // Cookie expires in 10 days
 
-            file_put_contents("./used.json", json_encode($usedData)); 
+            if (file_exists("./token.json")) 
+            {
+                // Read and decode the JSON file
+                $jsonData = json_decode(file_get_contents("./token.json"), true) ?: [];
+                
+                if (!isset($jsonData[0]['UsedToken']) || !is_array($jsonData[0]['UsedToken'])) 
+                    $jsonData[0]['UsedToken'] = [];
+                
+            
+                // Add the token if it doesn't already exist
+                if (!in_array($token, $jsonData[0]['UsedToken'])) 
+                    $jsonData[0]['UsedToken'][] = $token; // Push the new used token
+                
+            
+                // Save the updated JSON back to the file
+                file_put_contents("./token.json", json_encode($jsonData, JSON_PRETTY_PRINT));
+            }
+            
             echo "<div class='message success'>You're allowed to loan this book.</div>";
 
             // Display the submitted data
