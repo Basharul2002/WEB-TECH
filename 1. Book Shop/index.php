@@ -24,8 +24,9 @@
             <h3>All Tokens</h3>
             <ul>
                 <?php
-                if (file_exists("./token.json")) {
-                    $jsonData = json_decode(file_get_contents("./token.json"), true);
+                $tokenFile = "./token.json";
+                if (file_exists($tokenFile)) {
+                    $jsonData = json_decode(file_get_contents($tokenFile), true);
 
                     if (isset($jsonData[0]['token'])) 
                     {
@@ -48,12 +49,12 @@
         <h3>Already Tokens</h3>
             <ul>
                 <?php
-                if (file_exists("./token.json")) {
-                    $jsonData = json_decode(file_get_contents("./token.json"), true);
+                if (file_exists($tokenFile)) {
+                    $jsonData = json_decode(file_get_contents($tokenFile), true);
 
-                    if (isset($jsonData[0]['UsedToken'])) 
+                    if (isset($jsonData[0]['usedToken'])) 
                     {
-                        foreach ($jsonData[0]['UsedToken'] as $token) 
+                        foreach ($jsonData[0]['usedToken'] as $token) 
                             echo "<li>Token: $token</li>";
                     } 
                     else 

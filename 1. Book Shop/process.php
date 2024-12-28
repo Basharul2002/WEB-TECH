@@ -4,52 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Borrow System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #007BFF;
-        }
-        .details {
-            margin: 20px 0;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background: #f9f9f9;
-        }
-        .details p {
-            margin: 8px 0;
-            font-size: 16px;
-        }
-        .message {
-            text-align: center;
-            padding: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
-            border-radius: 5px;
-        }
-        .message.success {
-            background-color: #28a745;
-        }
-        .message.error {
-            background-color: #dc3545;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
     <div class="container">
@@ -84,13 +39,13 @@
                     else 
                         $flagToken = 0;
                 } 
-                else 
+                if (isset($jsonData[0]['usedToken']) && $flagToken == 1)
                     $flagUsedToken = 0;
 
-                    if (isset($jsonData[0]['token'])) 
+                    if (isset($jsonData[0]['usedToken'])) 
                     {
                         $inputToken = (int)$_POST['token']; 
-                        $tokens = $jsonData[0]['token'];    
+                        $tokens = $jsonData[0]['usedToken'];    
     
                         if (in_array($inputToken, $tokens)) 
                             $flagUsedToken = 1;
@@ -118,12 +73,14 @@
                 echo "You are not allow to use this token because its already used";
                 return;
             }
-            
-            if ($date2 - $date1 > 10 && $flagToken != 1)
+
+            // 1 day = 86400 seconds
+            if (($date2 - $date1) > 10 * 86400 && $flagToken != 1) 
             {
-                echo "Invalid return date";
+                echo "You're not allowed to loan the book because the return date is more than 10 days. Days: " . (($date2 - $date1) / 86400);
                 return;
             }
+            
 
 
             // Validation
@@ -169,18 +126,18 @@
             // Set cookie {Name: book title & value: student name
             setcookie($cookieName, $studentName, time() + (10 * 24 * 60 * 60), "/"); // Cookie expires in 10 days
 
-            if (file_exists("./token.json")) 
+            if (file_exists("./token.json") && $flagToken == 1) 
             {
                 // Read and decode the JSON file
                 $jsonData = json_decode(file_get_contents("./token.json"), true) ?: [];
                 
-                if (!isset($jsonData[0]['UsedToken']) || !is_array($jsonData[0]['UsedToken'])) 
-                    $jsonData[0]['UsedToken'] = [];
+                if (!isset($jsonData[0]['usedToken']) || !is_array($jsonData[0]['usedToken'])) 
+                    $jsonData[0]['usedToken'] = [];
                 
             
-                // Add the token if it doesn't already exist
-                if (!in_array($token, $jsonData[0]['UsedToken'])) 
-                    $jsonData[0]['UsedToken'][] = $token; // Push the new used token
+                // Add the token if it doesn't exist
+                if (!in_array($token, $jsonData[0]['usedToken'])) 
+                    $jsonData[0]['usedToken'][] = $token; // Push the new used token
                 
             
                 // Save the updated JSON back to the file
