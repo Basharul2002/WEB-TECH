@@ -1,141 +1,180 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
 
-/* Index.html */
+p {
+  text-align: center;
+  color: tomato;
+}
+
+/* Container */
 .container {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center; 
-    align-items: center; 
-    width: 660px; 
-    margin: auto; 
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 columns */
+  grid-gap: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-p{
-    text-align: center;
-    color: tomato;
+/* Box Styles */
+.box1, .box2, .box3, .box4, .box5, .box6, .box7, .box8, .box9 {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.box1 {
-    width: 620px;
-    height: 100px;
-    border: 1px solid rgb(253, 253, 253);
+/* Box 1 and Box 2: Span across two columns */
+.box1, .box2 {
+  grid-column: span 6;
+  width: 100%;
 }
 
-.box2 {
-    width: 190px; 
-    height: 100px;
-    border: 1px solid rgb(253, 253, 253);
-}
-
+/* Adjust the width of Box 3 to 22% */
 .box3 {
-    width: 300px; 
-    height: auto;
-    border: 1px solid rgb(253, 253, 253);
+  grid-column: span 3;
+  width: 100%;
 }
 
+/* Adjust the width of Box 4 to 22% */
 .box4 {
-  width: 300px; 
-  height: auto;
-  border: 1px solid rgb(253, 253, 253);
+  grid-column: span 3;
+  width: 100%;
 }
 
- /* Form container styling */
- .form-container {
-    width: 260px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Form title */
-  .form-container h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 1.5em;
-  }
-  
-  /* Input and select styling */
-  .form-container input[type="text"],
-  .form-container select {
-    width: 80%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
-  }
-
-  .form-container select {
-    width: 88%;
-  }
-  /* Placeholder styling */
-  .form-container input[type="text"]::placeholder {
-    color: #888;
-  }
-  
-  /* Submit button styling */
-  .form-container button {
-    width: 30%;
-    padding: 12px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .form-container button:hover {
-    background-color: #45a049;
-  }
-
-
-  
-  /*-------------------process.php-------------------*/
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    margin: 0;
-    padding: 20px;
+/* Adjust the width of Box 5 to 22% */
+.box5 {
+  grid-column: span 2;
+  width: 100%;
 }
-process-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+/* Adjust the width of Box 6 to 22% */
+.box6 {
+  grid-column: span 2;
+  width: 100%;
 }
-h2 {
-    text-align: center;
-    color: #007BFF;
+
+/* Adjust the width of Box 7 to 22% */
+.box7 {
+  grid-column: span 2;
+  width: 100%;
 }
+
+/* Adjust the width of Box 8 to 22% */
+.box8 {
+  grid-column: span 3;
+  width: 100%;
+}
+
+/* Adjust the width of Box 9 to 22% */
+.box9 {
+  grid-column: span 3;
+  width: 100%;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+table th, table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #007BFF;
+  color: white;
+}
+
+/* Form Container */
+.form-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+}
+
+.form-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+/* Input Styles */
+.form-container input[type="text"], 
+.form-container input[type="date"], 
+.form-container select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-container select {
+  width: calc(100% - 20px);
+}
+
+.form-container button, 
+.form-container input[type="submit"] {
+  display: inline-block; /* Makes button inline-block */
+  width: auto; /* Adjust the width based on content */
+  padding: 12px 20px; /* Add some padding */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0 auto; /* Center align with automatic margin */
+  margin-top: 20px;
+}
+
+.form-container button:hover, 
+.form-container input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
 .details {
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #f9f9f9;
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9;
+  grid-column: 2.5 / 4.5; /* Start at 2.5, end at 4.5 */
 }
 .details p {
-    margin: 8px 0;
-    font-size: 16px;
+  margin: 8px 0;
+  font-size: 16px;
 }
+
+/* Message Styles */
 .message {
-    text-align: center;
-    padding: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    border-radius: 5px;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+  grid-column: 2.5 / 4.5; /* Start at 2.5, end at 4.5 */
 }
 .message.success {
-    background-color: #28a745;
+  background-color: #28a745;
 }
 .message.error {
-    background-color: #dc3545;
+  background-color: #dc3545;
 }

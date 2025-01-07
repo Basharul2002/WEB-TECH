@@ -1,3 +1,4 @@
+<?php require 'dbConnection.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,10 +14,100 @@
     <div class="container">
         <!-- Top 3 boxes -->
         <div class="box1">
-            <p>Box 1</p>
+            <p>
+                <?php
+                // Assuming $conn is your active MySQL connection
+                $sql = "SELECT * FROM book"; // Correct SQL query
+                $result = mysqli_query($conn, $sql);
+
+                if ($result && mysqli_num_rows($result) > 0) {
+                    echo '<table border="1" style="width:100%; text-align:left; border-collapse:collapse;">';
+                    echo '<tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>ISBN</th>
+                            <th>Category</th>
+                        </tr>'; // Table headers
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<tr>';
+                        echo '<td>' . $row['id'] . '</td>';
+                        echo '<td>' . $row['name'] . '</td>';
+                        echo '<td>' . $row['title'] . '</td>';
+                        echo '<td>' . $row['isbn'] . '</td>';
+                        echo '<td>' . $row['category'] . '</td>';
+                        echo '</tr>';
+                    }
+
+                    echo '</table>';
+                } 
+                else 
+                    echo "No books found in the database.";
+                
+
+               // mysqli_close($conn); // Close the database connection if you're done
+                ?>
+            </p>
         </div>
-        <div class="box1">
+        <div class="box2">
             <p>Box 2</p>
+
+            <h3>Search Book by ID</h3>
+            <form method="POST" action="">
+                <label for="book_id">Enter Book ID:</label>
+                <input type="text" id="book_id" name="book_id" required>
+                <button type="submit" name="search">Search</button>
+            </form>
+
+            <?php
+            // Assuming $conn is your active MySQL connection
+            if (isset($_POST['search'])) {
+                $bookId = $_POST['book_id'];
+
+                $sql = "SELECT * FROM book WHERE id = '$bookId'";
+                $result = mysqli_query($conn, $sql);
+
+                if ($result && mysqli_num_rows($result) > 0) {
+                    $book = mysqli_fetch_assoc($result);
+
+                    // Display the book information and an update form
+                    echo '<h3>Book Information</h3>';
+                    echo '<form method="POST" action="">';
+                    echo '<input type="hidden" name="book_id" value="' . ($book['id']) . '">';
+                    echo '<label for="name">Book Name:</label>';
+                    echo '<input type="text" id="name" name="name" value="' . ($book['name']) . '" required><br>';
+                    echo '<label for="title">Book Title:</label>';
+                    echo '<input type="text" id="title" name="title" value="' . ($book['title']) . '" required><br>';
+                    echo '<label for="category">Category:</label>';
+                    echo '<input type="text" id="category" name="category" value="' . ($book['category']) . '" required><br>';
+                    echo '<label for="isbn">ISBN:</label>';
+                    echo '<input type="text" id="isbn" name="isbn" value="' . ($book['isbn']) . '" required><br>';
+                    echo '<button type="submit" name="update">Update</button>';
+                    echo '</form>';
+                } else {
+                    echo '<p>No book found with the given ID.</p>';
+                }
+            }
+
+            // Handle the update
+            if (isset($_POST['update'])) {
+                $bookId = $_POST['book_id'];
+                $name = $_POST['name'];
+                $title = $_POST['title'];
+                $category = $_POST['category'];
+                $isbn = $_POST['isbn'];
+
+                $updateSql = "UPDATE book_info SET name = '$name', title = '$title', category = '$category', isbn = '$isbn' WHERE id = '$bookId'";
+                $updateResult = mysqli_query($conn, $updateSql);
+
+                if ($updateResult) {
+                    echo '<p>Book information updated successfully!</p>';
+                } else {
+                    echo '<p>Error updating book information. Please try again.</p>';
+                }
+            }
+            ?>
         </div>
 
         <!-- First Box 3: Display all tokens -->
@@ -45,7 +136,7 @@
         </div>
 
         <!-- Second Box 3 -->
-        <div class="box3">
+        <div class="box4">
         <h3>Already Tokens</h3>
             <ul>
                 <?php
@@ -69,18 +160,18 @@
         </div>
 
         <!-- Form Section -->
-        <div class="box2">
+        <div class="box5">
             <p>Box 4.1</p>
         </div>
-        <div class="box2">
+        <div class="box6">
             <p>Box 4.2</p>
         </div>
-        <div class="box2">
+        <div class="box7">
             <p>Box 4.3</p>
         </div>
 
         <!-- Borrow Book -->
-        <div class="box3">
+        <div class="box8">
             <div class="form-container">
                 <h2>Borrow a Book</h2>
                 <form method="POST" action="process.php">
@@ -114,7 +205,7 @@
         </div>
 
         <!-- Add Book -->
-        <div class="box4">
+        <div class="box9">
             <div class="form-container">
                 <h2>Book Info</h2>
                 <form action="process.php" method="post">
