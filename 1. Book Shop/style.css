@@ -21,6 +21,14 @@ p {
   margin: auto;
 }
 
+.process {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* 6 columns */
+  grid-gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
 /* Box Styles */
 .box1, .box2, .box3, .box4, .box5, .box6, .box7, .box8, .box9 {
   border: 1px solid #ddd;
@@ -102,12 +110,12 @@ table th {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  text-align: left;
 
 }
 
 .form-container h2 {
-  text-align: center;
+  text-align: left;
   color: #333;
   margin-bottom: 20px;
   font-size: 1.5em;
@@ -122,6 +130,22 @@ table th {
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 5px;
+}
+
+input[type="number"] {
+  appearance: none;
+  -moz-appearance: textfield; /* Firefox */
+  -webkit-appearance: none; /* Chrome, Safari, Edge */
+  outline: none;
+  height: calc(100% + 10px); /* 2px wider */
+  margin-bottom: 5px; /* Bottom margin of 5px */
+}
+
+/* To completely hide spinner buttons */
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .form-container select {
@@ -148,33 +172,65 @@ table th {
 .form-container input[type="submit"]:hover {
   background-color: #45a049;
 }
-
+/* Details Section */
 .details {
-  margin: 20px 0;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background: #f9f9f9;
-  grid-column: 2.5 / 4.5; /* Start at 2.5, end at 4.5 */
+  margin: 20px auto;
+  padding: 20px; 
+  border: 2px solid #e0e0e0; 
+  border-radius: 10px; 
+  background: #ffffff; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+  justify-content: center;  
+  max-width: 80%; 
 }
+
+/* Paragraphs in Details */
 .details p {
-  margin: 8px 0;
+  margin: 12px 0; 
   font-size: 16px;
+  color: #555; 
+  line-height: 1.6; 
+  font-weight: 500; 
+}
+
+
+.details h2 {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Highlighted Data in Details */
+.details span {
+  font-weight: bold;
+  color: #333; 
+  background-color: #f9f9f9; 
+  padding: 2px 5px;
+  border-radius: 2px;
 }
 
 /* Message Styles */
 .message {
-  text-align: center;
-  padding: 10px;
-  font-size: 18px;
+  display: flex; 
+  justify-content: center; 
+  padding: 15px 20px; 
+  font-size: 1.2em; 
   font-weight: bold;
   color: #fff;
-  border-radius: 5px;
-  grid-column: 2.5 / 4.5; /* Start at 2.5, end at 4.5 */
+  border-radius: 10px; 
+  width: auto; 
+  max-width: 80%; 
+  margin: 20px auto; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
+
+/* Success Message */
 .message.success {
-  background-color: #28a745;
+  background-color: #28a745; 
+  border-left: 8px solid #218838; 
 }
+
+/* Error Message */
 .message.error {
-  background-color: #dc3545;
+  background-color: #dc3545; 
+  border-left: 8px solid #c82333; 
 }

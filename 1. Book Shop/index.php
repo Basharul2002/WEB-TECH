@@ -28,15 +28,17 @@
                             <th>Title</th>
                             <th>ISBN</th>
                             <th>Category</th>
+                            <th>Quantity</th>
                         </tr>'; // Table headers
 
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo '<tr>';
                         echo '<td>' . $row['id'] . '</td>';
-                        echo '<td>' . $row['name'] . '</td>';
-                        echo '<td>' . $row['title'] . '</td>';
+                        echo '<td>' . $row['bookTitle'] . '</td>';
+                        echo '<td>' . $row['bookAuthor'] . '</td>';
                         echo '<td>' . $row['isbn'] . '</td>';
-                        echo '<td>' . $row['category'] . '</td>';
+                        echo '<td>' . $row['bookCategory'] . '</td>';
+                        echo '<td>' . $row['bookQuantity'] . '</td>';
                         echo '</tr>';
                     }
 
@@ -68,30 +70,44 @@
                 $sql = "SELECT * FROM book WHERE id = '$bookId'";
                 $result = mysqli_query($conn, $sql);
 
-                if ($result && mysqli_num_rows($result) > 0) {
-                    $book = mysqli_fetch_assoc($result);
+                if (!$result && mysqli_num_rows($result) > 0) 
+                {
+                    echo '<p>No book found with the ID: ' . $bookId . '</p>';
+                    return;
+                }          
+                
+                $book = mysqli_fetch_assoc($result);
 
+                if ($book) 
+                {
                     // Display the book information and an update form
                     echo '<h3>Book Information</h3>';
-                    echo '<form method="POST" action="">';
-                    echo '<input type="hidden" name="book_id" value="' . ($book['id']) . '">';
+                    echo '<form method="POST" action="process.php">';
+                    echo '<input type="hidden" name="book_id" value="' . ($book['id']) . '"';
                     echo '<label for="name">Book Name:</label>';
-                    echo '<input type="text" id="name" name="name" value="' . ($book['name']) . '" required><br>';
+                    echo '<input type="text" id="name" name="title" value="' . ($book['bookTitle']) . '" required><br> <br>';
                     echo '<label for="title">Book Title:</label>';
-                    echo '<input type="text" id="title" name="title" value="' . ($book['title']) . '" required><br>';
+                    echo '<input type="text" id="title" name="authorName" value="' . ($book['bookAuthor']) . '" required><br> <br>';
                     echo '<label for="category">Category:</label>';
-                    echo '<input type="text" id="category" name="category" value="' . ($book['category']) . '" required><br>';
+                    echo '<input type="text" id="category" name="category" value="' . ($book['bookCategory']) . '" required><br> <br>';
                     echo '<label for="isbn">ISBN:</label>';
-                    echo '<input type="text" id="isbn" name="isbn" value="' . ($book['isbn']) . '" required><br>';
-                    echo '<button type="submit" name="update">Update</button>';
+                    echo '<input type="text" id="isbn" name="isbn" value="' . ($book['isbn']) . '" required><br> <br>';
+                    echo '<label for="quantity">Quantity:</label>';
+                    echo '<input type="text" id="isbn" name="quantity" value="' . ($book['bookQuantity']) . '" required><br> <br>';
+                    echo '<button type="submit" name="book_update">Update</button>';
+                    echo '<button type="submit" name="book_delete" style="color: red; margin-left: 10px;">Delete</button>';
                     echo '</form>';
-                } else {
-                    echo '<p>No book found with the given ID.</p>';
                 }
+
+                else 
+                    echo '<p>No book found with the ID: ' . $bookId . '</p>';
+
+                
             }
 
             // Handle the update
-            if (isset($_POST['update'])) {
+            if (isset($_POST['update'])) 
+            {
                 $bookId = $_POST['book_id'];
                 $name = $_POST['name'];
                 $title = $_POST['title'];
@@ -101,17 +117,18 @@
                 $updateSql = "UPDATE book_info SET name = '$name', title = '$title', category = '$category', isbn = '$isbn' WHERE id = '$bookId'";
                 $updateResult = mysqli_query($conn, $updateSql);
 
-                if ($updateResult) {
+                if ($updateResult) 
                     echo '<p>Book information updated successfully!</p>';
-                } else {
+                else 
                     echo '<p>Error updating book information. Please try again.</p>';
-                }
+                
             }
             ?>
         </div>
 
         <!-- First Box 3: Display all tokens -->
         <div class="box3">
+         <p> BOX 3 </p>
             <h3>All Tokens</h3>
             <ul>
                 <?php
@@ -137,6 +154,7 @@
 
         <!-- Second Box 3 -->
         <div class="box4">
+        <p> BOX 4 </p>
         <h3>Already Tokens</h3>
             <ul>
                 <?php
@@ -172,19 +190,34 @@
 
         <!-- Borrow Book -->
         <div class="box8">
+            <p> BOX 8 </p>
             <div class="form-container">
                 <h2>Borrow a Book</h2>
                 <form method="POST" action="process.php">
                     <input type="text" placeholder="Student Full Name" name="userName" required>
                     <input type="text" placeholder="Student ID" name="userID" required>
+
+                    <!-- Book Selection Dropdown -->
                     <select name="books" id="books" required>
-                        <option value="book0">Select a book</option>
-                        <option value="Introduction to Algorithms">Introduction to Algorithms</option>
-                        <option value="Structure and Interpretation of Computer Programs">Structure and Interpretation of Computer Programs</option>
-                        <option value="The C Programming Language">The C Programming Language</option>
-                        <option value="Introduction to the Theory of Computation">Introduction to the Theory of Computation</option>
-                        <option value="Algorithms">Algorithms</option>
+                        <option value="" disabled selected>Select a book</option>
+                        <?php
+                        include 'dbConnection.php'; // Include database connection
+                        
+                        // Query to get books with quantity > 0
+                        $sql = "SELECT * FROM book WHERE bookQuantity > 0";
+                        $result = mysqli_query($conn, $sql);
+                        
+                        if ($result && mysqli_num_rows($result) > 0) 
+                        {
+                            
+                            while ($row = mysqli_fetch_assoc($result)) 
+                                echo '<option value="' . $row['id'] . '">' . $row['bookTitle'] . '</option>';
+                        } 
+                        else 
+                            echo '<option value="" disabled>No books available</option>';
+                        ?>
                     </select>
+
                     <label>Borrow Date</label>
                     <input type="date" placeholder="Borrow Date" name="borrowDate" required>
                     <input type="text" placeholder="Token" name="token" required>
@@ -195,25 +228,36 @@
                     <label>Paid: </label>
                     <input type="radio" id="option1" name="paid" value="Paid" required>
                     <label for="paid">Yes</label>
-                    <input type="radio" id="option1" name="paid" value="Not Paid" required>
+                    <input type="radio" id="option2" name="paid" value="Not Paid" required>
                     <label for="not_paid">NO</label>
                     <br>
 
-                    <input type="submit" name="submit1" value="Submit">
+                    <input type="submit" name="borrow_book" value="Submit">
                 </form>
             </div>
         </div>
 
         <!-- Add Book -->
         <div class="box9">
+            <p> BOX 9 </p>
             <div class="form-container">
                 <h2>Book Info</h2>
                 <form action="process.php" method="post">
-                    <input type="text" placeholder="Book Title" name="bookTitle">
+                    <input type="text" placeholder="Book Title" name="title">
                     <input type="text" placeholder="Author Name" name="authorName">
-                    <input type="text" placeholder="Number of Book" name="numberOfBook">
-                    <input type="text" placeholder="ISBN Number" name="isbnNumber">
-                    <input type="submit" name="submit2" value="Submit">
+                    <input type="number" placeholder="ISBN Number" name="isbn"> <br> <br>
+                    <label>Category</label>
+                    <select name = "category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="Science">Science</option>
+                        <option value="Math">Math</option>
+                        <option value="History">History</option>
+                        <option value="Literature">Literature</option>
+                        <option value="Art">Art</option>
+                    </select>
+                    <br>
+                    <input type="number" placeholder="Number of Book" name="quantity"> <br>
+                    <input type="submit" name="new_book" value="Submit">
                 </form>
             </div>
         </div>
