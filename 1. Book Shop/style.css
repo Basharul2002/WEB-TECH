@@ -60,18 +60,27 @@ p {
 .box5 {
   grid-column: span 2;
   width: 100%;
+  overflow: hidden;
+}
+
+.box5 img, .box6 img, .box7 img {
+  width: 100%; /* Make the image fill the box width */
+  height: 100%; /* Make the image fill the box height */
+  object-fit: cover; /* Ensure the image scales proportionally without distortion */
 }
 
 /* Adjust the width of Box 6 to 22% */
 .box6 {
   grid-column: span 2;
   width: 100%;
+  overflow: hidden;
 }
 
 /* Adjust the width of Box 7 to 22% */
 .box7 {
   grid-column: span 2;
   width: 100%;
+  overflow: hidden;
 }
 
 /* Adjust the width of Box 8 to 22% */

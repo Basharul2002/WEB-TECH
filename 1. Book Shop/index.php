@@ -20,7 +20,8 @@
                 $sql = "SELECT * FROM book"; // Correct SQL query
                 $result = mysqli_query($conn, $sql);
 
-                if ($result && mysqli_num_rows($result) > 0) {
+                if ($result && mysqli_num_rows($result) > 0) 
+                {
                     echo '<table border="1" style="width:100%; text-align:left; border-collapse:collapse;">';
                     echo '<tr>
                             <th>ID</th>
@@ -31,7 +32,8 @@
                             <th>Quantity</th>
                         </tr>'; // Table headers
 
-                    while ($row = mysqli_fetch_assoc($result)) {
+                    while ($row = mysqli_fetch_assoc($result)) 
+                    {
                         echo '<tr>';
                         echo '<td>' . $row['id'] . '</td>';
                         echo '<td>' . $row['bookTitle'] . '</td>';
@@ -179,13 +181,16 @@
 
         <!-- Form Section -->
         <div class="box5">
-            <p>Box 4.1</p>
+            <p>Box 5</p>
+            <img src = "assets/book1.png "> 
         </div>
         <div class="box6">
-            <p>Box 4.2</p>
+            <p>Box 6</p>
+            <img src = "assets/book2.png"> 
         </div>
         <div class="box7">
-            <p>Box 4.3</p>
+            <p>Box 7</p>
+            <img src = "assets/book3.png"> 
         </div>
 
         <!-- Borrow Book -->
